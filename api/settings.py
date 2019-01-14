@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework'
+    'rest_framework',
+
+    #own
+    'music'
 ]
 
 MIDDLEWARE = [
@@ -76,7 +79,7 @@ WSGI_APPLICATION = 'api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'simpledb',
+        'NAME': 'dbsimple',
         'USER': 'burzychs',
         'PASSWORD': os.environ.get('DB_PASSWORD'),
         'HOST': 'localhost',
