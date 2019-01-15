@@ -90,3 +90,44 @@ class AuthLoginUserTest(BaseViewTest):
         response = self.login_a_user('annonymous', 'pass')
         #assert status code is 40 UNAUTHORIZED
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+class AuthRegisterUserTest(BaseViewTest):
+    def test_register_user(self):
+        url = reverse(
+            'auth-register',
+            kwargs={
+                'version': 'v1'
+            }
+        )
+        response = self.client.post(
+            url,
+            data=json.dumps({
+                'username': 'new_user',
+                'password': 'new_pass',
+                'email': 'new_user@gmail.com'
+            }),
+            content_type='application/json'
+        )
+        # assert status code is 201 CREATED
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_register_user_with_invalid_data(self):
+        url = reverse(
+            "auth-register",
+            kwargs={
+                "version": "v1"
+            }
+        )
+        response = self.client.post(
+            url,
+            data=json.dumps(
+                {
+                    "username": "",
+                    "password": "",
+                    "email": ""
+                }
+            ),
+            content_type='application/json'
+        )
+        # assert status code
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
